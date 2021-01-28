@@ -6,7 +6,7 @@ class GameState():
         ["bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"],
         ["bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"],
         ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-        ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
+        ["  ", "  ", "wB", "  ", "  ", "  ", "  ", "  "],
         ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
         ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
         ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
@@ -153,12 +153,157 @@ class GameState():
         return moves
             
     def get_bishop_moves(self, r, c, moves):
-        pass
-    def get_queen_moves(self, r, c, moves):
-        pass
-    def get_king_moves(self, r, c, moves):
-        pass
+        i = r + 1
+        j = c + 1
+        other_piece = True
+        if i <= 7 and j <= 7:
+            for i, j in zip(range(i, 8), range(j,8)):
+                if other_piece:
+                    if self.board[i, j] == "  ": 
+                        moves.append(Move((r, c), (i, j), self.board))              
+                    elif self.board[i, j][0] != self.board[r, c][0]: #if color of met piece is not equal to your piece
+                        moves.append(Move((r, c), (i, j), self.board))
+                        other_piece = False           
+                    elif self.board[i, j][0] == self.board[r, c][0]: 
+                        other_piece = False
 
+        i = r - 1
+        j = c + 1
+        other_piece = True
+        if i >= 0 and j <= 7:
+            for i, j in zip(range(i, -1, -1), range(j,8)):
+                if other_piece:
+                    if self.board[i, j] == "  ":
+                        moves.append(Move((r, c), (i, j), self.board))                            
+                    elif self.board[i, j][0] != self.board[r, c][0]: 
+                        moves.append(Move((r, c), (i, j), self.board))  
+                        other_piece = False 
+                    elif self.board[i, j][0] == self.board[r, c][0]:
+                        other_piece = False          
+
+        i = r + 1
+        j = c - 1
+        other_piece = True
+        if i <= 7 and j >= 0:
+            for i, j in zip(range(i, 8), range(j, -1, -1)):
+                if other_piece:
+                    if self.board[i, j] == "  ": 
+                        moves.append(Move((r,c), (i, j), self.board))             
+                    elif self.board[i, j][0] != self.board[r, c][0]: 
+                        moves.append(Move((r, c), (i, j), self.board))
+                        other_piece = False
+                    elif self.board[i, j][0] == self.board[r, c][0]:
+                        other_piece = False
+
+        i = r - 1
+        j = c - 1
+        other_piece = True
+        if i >= 0 and j >= 0:
+            for i, j in zip(range(i, -1, -1), range(j, -1, -1)):
+                if other_piece:
+                    if self.board[i, j] == "  ":
+                        moves.append(Move((r,c), (i, j), self.board))                
+                    elif self.board[i, j][0] != self.board[r, c][0]: 
+                        moves.append(Move((r, c), (i, j), self.board))   
+                        other_piece = False 
+                    elif self.board[i, j][0] == self.board[r, c][0]: 
+                        other_piece = False
+
+        return moves  
+        
+    def get_queen_moves(self, r, c, moves):
+
+
+        moves.append(self.get_bishop_moves(r, c, moves))
+        moves.append(self.get_rook_moves(r, c, moves))
+        return moves
+
+    def get_king_moves(self, r, c, moves):
+        i = r + 1
+        if i <= 7:
+            if self.board[i, c] == "  ": 
+                moves.append(Move((r, c), (i, c), self.board))              
+            elif self.board[i, c][0] != self.board[r, c][0]:
+                moves.append(Move((r, c), (i, c), self.board))
+                other_piece = False           
+            elif self.board[i, c][0] == self.board[r, c][0]: 
+                other_piece = False
+
+        i = r - 1
+        if i >= 0:
+            if self.board[i, c] == "  ":
+                moves.append(Move((r, c), (i, c), self.board))                            
+            elif self.board[i, c][0] != self.board[r, c][0]: 
+                moves.append(Move((r, c), (i, c), self.board))  
+                other_piece = False 
+            elif self.board[i, c][0] == self.board[r, c][0]:
+                other_piece = False          
+
+        i = c + 1
+        if i <= 7:
+            if self.board[r, i] == "  ": 
+                moves.append(Move((r,c), (r, i), self.board))             
+            elif self.board[r, i][0] != self.board[r, c][0]: 
+                moves.append(Move((r, c), (r, i), self.board))
+                other_piece = False
+            elif self.board[r, i][0] == self.board[r, c][0]:
+                other_piece = False
+
+        i = c - 1
+        if i >= 0:
+            if self.board[r, i] == "  ":
+                moves.append(Move((r,c), (r, i), self.board))                
+            elif self.board[r, i][0] != self.board[r, c][0]: 
+                moves.append(Move((r, c), (r, i), self.board))   
+                other_piece = False 
+            elif self.board[r, i][0] == self.board[r, c][0]: 
+                other_piece = False
+
+        i = r + 1
+        j = c + 1
+        if i <= 7 and j <= 7:
+            if self.board[i, j] == "  ": 
+                moves.append(Move((r, c), (i, j), self.board))              
+            elif self.board[i, j][0] != self.board[r, c][0]: 
+                moves.append(Move((r, c), (i, j), self.board))
+                other_piece = False           
+            elif self.board[i, j][0] == self.board[r, c][0]: 
+                other_piece = False
+
+        i = r - 1
+        j = c + 1
+        if i >= 0 and j <= 7:
+            if self.board[i, j] == "  ":
+                moves.append(Move((r, c), (i, j), self.board))                            
+            elif self.board[i, j][0] != self.board[r, c][0]: 
+                moves.append(Move((r, c), (i, j), self.board))  
+                other_piece = False 
+            elif self.board[i, j][0] == self.board[r, c][0]:
+                other_piece = False          
+
+        i = r + 1
+        j = c - 1
+        if i <= 7 and j >= 0:
+            if self.board[i, j] == "  ": 
+                moves.append(Move((r,c), (i, j), self.board))             
+            elif self.board[i, j][0] != self.board[r, c][0]: 
+                moves.append(Move((r, c), (i, j), self.board))
+                other_piece = False
+            elif self.board[i, j][0] == self.board[r, c][0]:
+                other_piece = False
+
+        i = r - 1
+        j = c - 1
+        if i >= 0 and j >= 0:
+            if self.board[i, j] == "  ":
+                moves.append(Move((r,c), (i, j), self.board))                
+            elif self.board[i, j][0] != self.board[r, c][0]: 
+                moves.append(Move((r, c), (i, j), self.board))   
+                other_piece = False 
+            elif self.board[i, j][0] == self.board[r, c][0]: 
+                other_piece = False
+
+        return moves
 
     """check if move is valid (if a pawn moves, the king may be checkmate (if black moves, check moves for white)"""
     def get_valid_moves(self):
