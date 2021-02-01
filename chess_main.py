@@ -5,7 +5,6 @@ import os
 import numpy as np
 import chess_engine
 
-
 p.init()
 WIDTH = HEIGHT = 512
 DIMENSION = 8
@@ -44,6 +43,7 @@ def main():
                 else:
                     sq_selected = (row, col) #better notation
                     player_clicks.append(sq_selected)
+
                 if len(player_clicks) == 2: #two mouse clicks
                     move = chess_engine.Move(player_clicks[0],player_clicks[1], gs.board)
                     if move in valid_moves:
@@ -52,10 +52,9 @@ def main():
                         move_made = True
                         sq_selected = ()
                         player_clicks = []
-                    if move not in valid_moves:
-                        move_made = False
-                        sq_selected = ()
-                        player_clicks = []
+                    else:
+                        player_clicks = [sq_selected]
+
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_z:  #undo when 'z' is pressed
                     gs.undo_move()
