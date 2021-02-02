@@ -8,5 +8,5 @@ To do for full chess game:
 
 To do later:
 - Random Move AI
-- More advanced AI's
+- MiniMax AI
 
