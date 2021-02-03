@@ -77,14 +77,14 @@ def main():
 
         draw_GameState(screen,gs, valid_moves, sq_selected)
 
-        if gs.in_check == True and len(valid_moves) == 0:
+        if gs.check_mate == True:
             #checkmate
             game_over = True
             if gs.white_to_move:
                 draw_text(screen, 'Black wins by checkmate!')
             else:
                 draw_text(screen, 'White wins by checkmate!')
-        elif gs.in_check == False and len(valid_moves) == 0:
+        elif gs.stale_mate == True:
             #stalemate, remise
             game_over = True
             draw_text(screen, 'Remise by stalemate.')
