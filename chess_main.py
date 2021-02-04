@@ -1,5 +1,4 @@
 ''' Main driver: for displaying current game state and handling user input.'''
-## FINISHED VIDEO 1
 import pygame as p
 import os
 import numpy as np
@@ -126,10 +125,10 @@ def draw_pieces(screen, gs):
 
 def draw_text(screen, text):
     font = p.font.SysFont("Helvitca", 32, True, False)
-    text_object = font.render(text, 0, p.Color('Black'))
+    text_object = font.render(text, 0, p.Color('Red'))
     text_location = p.Rect(0, 0, WIDTH, HEIGHT).move(WIDTH/2 - text_object.get_width() / 2,HEIGHT/2 - text_object.get_height() / 2)
     screen.blit(text_object, text_location)
-    text_object = font.render(text, 0, p.Color('grey'))
+    text_object = font.render(text, 0, p.Color('Black'))
     screen.blit(text_object, text_location.move(2, 2))
 
 

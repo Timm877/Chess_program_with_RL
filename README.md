@@ -1,10 +1,10 @@
 # Chess_program_with_RL
 
 To do for full chess game:  
-- Pawn Promotion
+- ~~Pawn Promotion
 - En passant
 - Castling
-- Move animation
+- ~~Move animation
 
 To do later:
 - Random Move AI
