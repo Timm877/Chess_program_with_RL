@@ -22,7 +22,6 @@ class GameState():
         self.check_mate = False
         self.stale_mate = False
 
-
    
     def make_move(self, move):
         self.board[move.start_row, move.start_col] = "  "
@@ -48,6 +47,9 @@ class GameState():
                 self.white_king_location = (move.start_row, move.start_col)
             if move.piece_moved == 'bK':
                 self.black_king_location = (move.start_row, move.start_col)
+
+        self.check_mate = False
+        self.stale_mate = False
 
     """check if move is possible (a pawn could move 1 step or 2 steps forward)."""
     def get_possible_moves(self):

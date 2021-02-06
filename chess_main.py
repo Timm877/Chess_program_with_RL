@@ -2,7 +2,7 @@
 import pygame as p
 import os
 import numpy as np
-import chess_engine
+import chess_engine, chess_AI
 
 p.init()
 WIDTH = HEIGHT = 512
@@ -29,12 +29,19 @@ def main():
     sq_selected = () #last click of user
     player_clicks = [] # keep track of player clicks (2 tuples)
     game_over = False
+
+    player_one = True #if true, human plays white, else AI
+    player_two = False #If true, human plays black, else AI
+
     while running:
+
+        is_human_turn = (gs.white_to_move and player_one) or (not gs.white_to_move and player_two)
+
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
             elif e.type == p.MOUSEBUTTONDOWN:
-                if not game_over:
+                if not game_over and is_human_turn:
                     location = p.mouse.get_pos() #x,y so col, row
                     col  = location[0] // SQ_SIZE
                     row = location[1] // SQ_SIZE
@@ -62,14 +69,22 @@ def main():
                     gs.undo_move()
                     move_made = True
                     game_over = False
-                if e.key == p.K_r: #reset whole board
+                if e.key == p.K_r: #reset whole board with 'r'
                     gs = chess_engine.GameState()
                     valid_moves = gs.get_valid_moves()
                     sq_selected = ()
                     player_clicks = []
                     move_made = False
                     game_over = False
-                
+
+        #AI move finder
+        if not game_over and not is_human_turn:
+            AI_move = chess_AI.find_most_material_move(gs, valid_moves)
+            if AI_move == None:
+                AI_move = chess_AI.find_random_moves(valid_moves)
+            gs.make_move(AI_move)
+            move_made = True
+
         if move_made:
             valid_moves = gs.get_valid_moves() #move is made, generate new set of valid moves
             move_made = False
