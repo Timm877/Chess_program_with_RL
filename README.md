@@ -1,13 +1,13 @@
 # Chess_program_with_RL
-Player plays as white vs minmax AI as black by default.  
+Player plays as white vs minmax AI playing as black by default.  
 
 To do for full chess game:  
-- ~~Pawn Promotion
+- ~~Pawn Promotion~~
 - En passant
 - Castling
-- ~~Move animation
+- ~~Move animation~~
 
 To do later:
-- ~~Random Move AI
-- ~~MinMax AI
+- ~~Random Move AI~~
+- ~~MinMax AI~~
 
